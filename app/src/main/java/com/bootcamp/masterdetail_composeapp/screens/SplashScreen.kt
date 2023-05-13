@@ -1,4 +1,4 @@
-package com.bootcamp.masterdetail_composeapp.ui.screens
+package com.bootcamp.masterdetail_composeapp.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -13,7 +13,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import com.bootcamp.masterdetail_composeapp.R
-import com.bootcamp.masterdetail_composeapp.ui.navigation.AppScreens
+import com.bootcamp.masterdetail_composeapp.navigation.AppScreens
 import kotlinx.coroutines.delay
 
 // SplashScreen Composable: muestra la pantalla de bienvenida y redirige al usuario después de un retardo
