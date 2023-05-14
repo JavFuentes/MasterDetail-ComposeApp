@@ -19,61 +19,77 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.bootcamp.masterdetail_composeapp.data.notes.NoteDao
-import com.bootcamp.masterdetail_composeapp.data.notes.NoteDatabase
 
+
+// Definición de la clase de datos para los desarrolladores.
+data class Developer(val name: String, val avatarId: Int)
+
+// Función para generar la lista de desarrolladores.
+fun getAndroidDeveloperIds(context: Context): List<Developer> {
+    // Crear una lista mutable para almacenar los desarrolladores.
+    val androidDevelopers = mutableListOf<Developer>()
+
+    // Crear una lista de nombres de desarrolladores.
+    val developerNames = listOf(
+        "Stiven Fonseca", "Sergio Alvarado", "Luis Zenteno", "Lautaro Alarcón",
+        "Jose Mora", "David Toro", "Consuelo Magaña", "Beatriz Urzua",
+        "Bárbara Carvajal", "Agustin Romero", "Javier Fuentes", "Leonardo Rojas",
+        "Javiera Mutis", "Moises Segura"
+    )
+
+    // Iterar sobre los nombres de los desarrolladores.
+    for (i in 1..developerNames.size) {
+        // Crear el nombre de la imagen.
+        val imageName = "android$i"
+
+        // Obtener el ID del recurso para la imagen.
+        val resourceId = context.resources.getIdentifier(imageName, "drawable", context.packageName)
+
+        // Crear el objeto Developer y añadirlo a la lista.
+        androidDevelopers.add(Developer(developerNames[i - 1], resourceId))
+    }
+
+    // Devolver la lista de desarrolladores.
+    return androidDevelopers
+}
 
 @Composable
 fun MasterScreen(navController: NavController) {
-
-    Box(
-        modifier = Modifier.fillMaxSize()
-    ) {
+    // Crear una caja que ocupa todo el espacio disponible.
+    Box(modifier = Modifier.fillMaxSize()) {
+        // Llamar al contenido principal de la pantalla.
         BodyContent(navController)
     }
 }
 
 @Composable
-fun BodyContent(navController: NavController){
+fun BodyContent(navController: NavController) {
+    // Obtener el contexto actual.
     val context = LocalContext.current
-    val androidDeveloperIds = getAndroidDeveloperIds(context = context)
 
+    // Obtener la lista de desarrolladores.
+    val androidDevelopers = getAndroidDeveloperIds(context = context)
+
+    // Crear una columna perezosa.
     LazyColumn {
-        items(androidDeveloperIds){imageId ->
+        // Crear un elemento para cada desarrollador.
+        items(androidDevelopers) { developer ->
+            // Crear una tarjeta para cada desarrollador.
             Card(modifier = Modifier.fillMaxWidth().padding(8.dp)) {
+                // Crear una fila para cada tarjeta.
                 Row(verticalAlignment = Alignment.CenterVertically) {
+                    // Mostrar la imagen del avatar del desarrollador.
                     Image(
-                        painter = painterResource(id = imageId),
+                        painter = painterResource(id = developer.avatarId),
                         contentDescription = null,
                         modifier = Modifier
                             .size(100.dp)
                             .padding(8.dp)
                     )
-                    Text(text = "Android $imageId", modifier = Modifier.padding(8.dp))
+                    // Mostrar el nombre del desarrollador.
+                    Text(text = developer.name, modifier = Modifier.padding(8.dp))
                 }
             }
         }
     }
 }
-
-@Composable
-fun getAndroidDeveloperIds(context: Context): List<Int> {
-    // Crea una lista mutable que almacenará los IDs de los recursos de imágenes de androides.
-    val androidDeveloperIds = mutableListOf<Int>()
-
-    // Usa un bucle para iterar a través de los números de imagen de 1 a 25.
-    for (i in 1..25) {
-
-        // Crea el nombre de archivo de imagen a partir del número de imagen.
-        val imageName = "android$i"
-
-        // Obtiene el ID del recurso de imagen correspondiente al nombre de archivo de imagen utilizando el contexto.
-        val resourceId = context.resources.getIdentifier(imageName, "drawable", context.packageName)
-
-        // Agrega el ID del recurso de imagen a la lista mutable.
-        androidDeveloperIds.add(resourceId)
-    }
-    // Devuelve la lista de IDs de recursos de imágenes de androides.
-    return androidDeveloperIds
-}
-

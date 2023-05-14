@@ -22,7 +22,7 @@ fun AppNavigation() {
             SplashScreen(navController)
         }
 
-        // Definimos la pantalla principal de nuestra app.
+        // Definimos la pantalla master de nuestra app.
         composable(route = AppScreens.MasterScreen.route) {
             MasterScreen(navController)
         }
