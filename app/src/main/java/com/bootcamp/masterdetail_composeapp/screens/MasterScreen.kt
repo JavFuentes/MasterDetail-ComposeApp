@@ -19,9 +19,13 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.bootcamp.masterdetail_composeapp.data.notes.NoteDao
+import com.bootcamp.masterdetail_composeapp.data.notes.NoteDatabase
+
 
 @Composable
 fun MasterScreen(navController: NavController) {
+
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -72,3 +76,4 @@ fun getAndroidDeveloperIds(context: Context): List<Int> {
     // Devuelve la lista de IDs de recursos de imágenes de androides.
     return androidDeveloperIds
 }
+

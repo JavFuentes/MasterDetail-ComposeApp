@@ -5,7 +5,6 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.bootcamp.masterdetail_composeapp.utils.Constants
 
-
 @Entity(tableName = Constants.note_table_name)
 data class NoteEntity(
     @PrimaryKey val uid: Int,
