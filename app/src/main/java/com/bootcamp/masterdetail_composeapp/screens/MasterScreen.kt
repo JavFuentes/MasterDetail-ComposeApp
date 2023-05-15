@@ -2,6 +2,7 @@ package com.bootcamp.masterdetail_composeapp.screens
 
 import android.content.Context
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,15 +11,26 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.NavOptions
+import com.bootcamp.masterdetail_composeapp.navigation.AppScreens
 
 
 // Definición de la clase de datos para los desarrolladores.
@@ -45,7 +57,7 @@ fun getAndroidDeveloperIds(context: Context): List<Developer> {
         // Obtener el ID del recurso para la imagen.
         val resourceId = context.resources.getIdentifier(imageName, "drawable", context.packageName)
 
-        // Crear el objeto Developer y añadirlo a la lista.
+        // Crear el objeto Developer y lo añade a la lista.
         androidDevelopers.add(Developer(developerNames[i - 1], resourceId))
     }
 
@@ -75,7 +87,15 @@ fun BodyContent(navController: NavController) {
         // Crear un elemento para cada desarrollador.
         items(androidDevelopers) { developer ->
             // Crear una tarjeta para cada desarrollador.
-            Card(modifier = Modifier.fillMaxWidth().padding(8.dp)) {
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp)
+                    .clickable{  navController.navigate(route = AppScreens.DetailScreen.route)   },
+                colors = CardDefaults.cardColors(
+                    containerColor = Color(0xFF1D617A),
+                    disabledContainerColor = Color(0xFF1D617A)
+                    )) {
                 // Crear una fila para cada tarjeta.
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     // Mostrar la imagen del avatar del desarrollador.
@@ -87,9 +107,17 @@ fun BodyContent(navController: NavController) {
                             .padding(8.dp)
                     )
                     // Mostrar el nombre del desarrollador.
-                    Text(text = developer.name, modifier = Modifier.padding(8.dp))
+                    Text(
+                        text = developer.name,
+                        modifier = Modifier.padding(8.dp),
+                        fontSize = 28.sp,
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold
+                    )
                 }
             }
         }
     }
 }
+
+

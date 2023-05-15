@@ -3,6 +3,7 @@ package com.bootcamp.masterdetail_composeapp
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.core.content.ContextCompat
 import com.bootcamp.masterdetail_composeapp.navigation.AppNavigation
 
 class MainActivity : ComponentActivity() {
@@ -13,6 +14,9 @@ class MainActivity : ComponentActivity() {
         setContent {
             AppNavigation()
         }
+
+        // Cambiar el color de la barra de estado
+        window.statusBarColor = ContextCompat.getColor(this, R.color.android_blue)
     }
 }
 
