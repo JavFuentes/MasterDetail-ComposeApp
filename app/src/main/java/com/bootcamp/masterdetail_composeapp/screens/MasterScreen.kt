@@ -11,15 +11,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -31,7 +26,6 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import com.bootcamp.masterdetail_composeapp.navigation.AppScreens
-
 
 // Definición de la clase de datos para los desarrolladores.
 data class Developer(val name: String, val avatarId: Int)
@@ -91,7 +85,17 @@ fun BodyContent(navController: NavController) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(8.dp)
-                    .clickable{  navController.navigate(route = AppScreens.DetailScreen.route)   },
+                    .clickable{
+                        val route = AppScreens.DetailScreen.route + "/${developer.name}"
+
+                        // Crear opciones de navegación para reemplazar el back stack
+                        // [CAMBIAR LA FUNCIÓN DEL BACK STACK]
+                        val navOptions = NavOptions.Builder()
+                            .setPopUpTo(AppScreens.MasterScreen.route, inclusive = true)
+                            .build()
+
+                        // Navegar a SecondScreen utilizando las opciones de navegación
+                        navController.navigate(route, navOptions)   },
                 colors = CardDefaults.cardColors(
                     containerColor = Color(0xFF1D617A),
                     disabledContainerColor = Color(0xFF1D617A)

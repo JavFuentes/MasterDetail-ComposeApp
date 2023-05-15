@@ -1,9 +1,11 @@
 package com.bootcamp.masterdetail_composeapp.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.bootcamp.masterdetail_composeapp.screens.DetailScreen
 import com.bootcamp.masterdetail_composeapp.screens.MasterScreen
 import com.bootcamp.masterdetail_composeapp.screens.SplashScreen
@@ -27,9 +29,15 @@ fun AppNavigation() {
             MasterScreen(navController)
         }
 
+
         // Definimos la pantalla de detalle de nuestra app.
-        composable(route = AppScreens.DetailScreen.route) {
-            DetailScreen(navController)
+        composable(route = AppScreens.DetailScreen.route + "/{developer}",
+            arguments = listOf(
+                navArgument("developer") {
+                    type = NavType.StringType
+                })
+        ) {
+            DetailScreen(navController, it.arguments?.getString("developer"))
         }
     }
 }
